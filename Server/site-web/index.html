@@ -1,0 +1,84 @@
+<html>
+<header>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+</header>
+
+<body>
+    <topbar><a>Debug : On</a></topbar>
+    <topsite>
+        <img src="img/topsite.png">
+        <header_info>
+            <header_profil style="padding-top:8px;">
+                <my_avatar>
+				<br><br>
+				<div class="skinviewer">
+                    <iframe allowfullscreen src="/data/viewskin.swf?SHOWBIG=1&SKINID=0&SKINCOLOR={{color}}" height="150" width="80" id="skinviewerframe"></iframe>
+                </div>
+				</my_avatar>
+                <profil_login_box>
+                    {{form}}
+                </profil_login_box>
+            </header_profil>
+        </header_info>
+        <menu>
+            <ul>
+                <li><a href = "/"><span>Le Tchat</span></a></li>
+                <li><a href="/inscription"><span>Inscription</span></a></li>
+                <li><a href="/info"><span>Information</span></a></li>
+				<li><a href="/skin"><span>Changer de skin</span></a></li>
+            </ul>
+        </menu>
+    </topsite>
+    <!-- {{message}} -->
+    <div id="chat"></div>
+    <script type="text/javascript">
+
+const text = document.getElementById("skinviewerframe").src;
+const word = 'SKINCOLOR=';
+
+const index = text.indexOf(word);
+const length = word.length;
+const result = text.slice(index + length);
+
+var array = result.split(',');
+
+color0 = +array[0];
+
+if (color0 > 1) {
+color1 = +array[0].toString() + +1;
+color2 = +array[1].toString() + +1;
+color3 = +array[2].toString() + +1;
+color4 = +array[3].toString() + +1;
+color5 = +array[4].toString() + +1;
+color6 = +array[5].toString() + +1;
+color7 = +array[6].toString() + +1;
+color8 = +array[7].toString() + +1;
+color9 = +array[8].toString() + +1;
+color10 = +array[9].toString() + +1;
+
+colorh1 = parseInt(color1, 10).toString(16)
+colorh2 = parseInt(color2, 10).toString(16)
+colorh3 = parseInt(color3, 10).toString(16)
+colorh4 = parseInt(color4, 10).toString(16)
+colorh5 = parseInt(color5, 10).toString(16)
+colorh6 = parseInt(color6, 10).toString(16)
+colorh7 = parseInt(color7, 10).toString(16)
+colorh8 = parseInt(color8, 10).toString(16)
+colorh9 = parseInt(color9, 10).toString(16)
+colorh10 = parseInt(color10, 10).toString(16)
+
+var skinviewerlink = '/data/viewskin.swf?SHOWBIG=1&SKINID={{skinid}}&SKINCOLOR=' + '%25' + colorh1.padStart(2, '0') + '%25' + colorh2.padStart(2, '0') + '%25' + colorh3.padStart(2, '0') + '%25' + colorh4.padStart(2, '0') + '%25' + colorh5.padStart(2, '0') + '%25' + colorh6.padStart(2, '0') + '%25' + colorh7.padStart(2, '0') + '%25' + colorh8.padStart(2, '0') + '%25' + colorh9.padStart(2, '0') + '%25' + colorh10.padStart(2, '0');
+let decoded2 = decodeURI(skinviewerlink);
+document.getElementById("skinviewerframe").src = decoded2;
+//document.getElementById("testcolor").innerHTML =array+'!'+decoded2;
+  } else {
+document.getElementById("skinviewerframe").src = '/data/viewskin.swf?SHOWBIG=1&SKINID=7&SKINCOLOR=%10%01%44%2c%2c%3c';
+  }
+		
+		swfobject.ua.pv = [100, 0, 0];
+        swfobject.embedSWF("/chat/chat.swf?CACHE_VERSION=104", "chat", "950", "560", "11.0", null, { FBFROMAPP: 0, FBAPPID: "395450240451647", SESSION: {{session}}, DAILYMSG: "Vous pouvez modifier votre skin ou visualiser tout ceux disponible via l'onglet du haut 'Changer de skin'.", DAILYMSGSECU: "Si+tu+partage+les+identifiants+de+ton+adresse+email+avec+quelqu%27un...+il+aura+la+possibilit%C3%A9+de+te+voler+ton+compte+Blablaland.+Fais+bien+attention" }, { bgcolor: "#A3DAFD", wmode: "opaque" }, { name: "DIV_TCHAT_SWF" });
+    </script>
+</body>
+
+</html>

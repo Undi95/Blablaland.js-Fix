@@ -1,0 +1,52 @@
+<html>
+<header>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+</header>
+
+<body>
+    <topbar><a>Debug : On</a></topbar>
+    <topsite>
+        <img src="img/topsite.png">
+        <header_info>
+            <header_profil style="padding-top:8px;">
+                <my_avatar>
+                    <img src="img/tmp_profil.png">
+                </my_avatar>
+                <profil_login_box>
+                    {{form}}
+                </profil_login_box>
+            </header_profil>
+        </header_info>
+        <menu>
+            <ul>
+                <li><a href = "/"><span>Le Tchat</span></a></li>
+                <li><a href="/inscription"><span>Inscription</span></a></li>
+                <li><a href="/info"><span>Information</span></a></li>
+				<li><a href="/skin"><span>Changer de skin</span></a></li>
+            </ul>
+        </menu>
+    </topsite>
+    <content>
+<label for="name">Pseudo (3 à 10 lettres):</label><br>
+<input type="text" id="name" name="name" size="10"><br>
+	   
+<label for="name">Mot de passe:</label><br>
+<input type="password" id="pass" name="pass" size="10"><br><br>
+
+<input type="button" id="Signup" value="S'inscrire" onclick="signup()">
+<p id="test"></p>
+    </content>
+	<script>
+  function signup() {
+const Pseudo = document.getElementById('name').value;
+const Password = document.getElementById('pass').value;
+url = "/signup?validform=Inscription&con_pseudo=" + Pseudo + "&con_password=" + Password
+document.getElementById("Signup").href = url;
+window.location = url;
+  }
+  </script>
+  
+</body>
+
+</html>

@@ -1,0 +1,232 @@
+<html>
+<header>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+</header>
+
+<body>
+    <topbar><a>Debug : On</a></topbar>
+    <topsite>
+        <img src="img/topsite.png">
+        <header_info>
+            <header_profil style="padding-top:8px;">
+                <my_avatar>
+                    <img src="img/tmp_profil.png">
+                </my_avatar>
+                <profil_login_box>
+                    {{form}}
+                </profil_login_box>
+            </header_profil>
+        </header_info>
+        <menu>
+            <ul>
+                <li><a href = "/"><span>Le Tchat</span></a></li>
+                <li><a href="/inscription"><span>Inscription</span></a></li>
+                <li><a href="/info"><span>Information</span></a></li>
+				<li><a href="/skin"><span>Changer de skin</span></a></li>
+            </ul>
+        </menu>
+    </topsite>
+	<content>
+	SkinId : <input type="number" id="SkinID" onkeyup="validateinput0()" style="width:60px"><br><br>
+	<img src="/data/pictures/skincolor.png"><br><br>
+	<br><br>Color 1: <input type="number" id="C1" onkeyup="validateinput1()" style="width:50px">
+Color 2: <input type="number" id="C2" onkeyup="validateinput2()" style="width:50px">
+Color 3: <input type="number" id="C3" onkeyup="validateinput3()" style="width:50px">
+Color 4: <input type="number" onkeyup="validateinput4()" id="C4" style="width:50px">
+Color 5: <input type="number" onkeyup="validateinput5()" id="C5" style="width:50px"><br>
+Color 6: <input type="number" onkeyup="validateinput6()" id="C6" style="width:50px">
+Color 7: <input type="number" onkeyup="validateinput7()" id="C7" style="width:50px">
+Color 8: <input type="number" onkeyup="validateinput8()" id="C8" style="width:50px">
+Color 9: <input type="number" onkeyup="validateinput9()" id="C9" style="width:50px">
+Color 10: <input type="number" onkeyup="validateinput10()" id="C10" style="width:50px">
+<br><br><iframe src="/data/viewskin.swf?SHOWBIG=1&SKINID=4&SKINCOLOR=0%05%05%05%05%05%05%05%05%05" height="180" width="90" id="skinviewerframeprofil"></iframe>
+<br><br><input type= "button" onclick="loadSkin()" value="Load Skin"/> <a id="changeskin" href=""><input type= "button" value="Change Skin"/><a>
+<p id="testskin99">test<p>
+
+				<script>
+  function loadSkin() {
+  
+color1 = document.getElementById('C1').value.padStart(2, '0');
+color2 = document.getElementById('C2').value.padStart(2, '0');
+color3 = document.getElementById('C3').value.padStart(2, '0');
+color4 = document.getElementById('C4').value.padStart(2, '0');
+color5 = document.getElementById('C5').value.padStart(2, '0');
+color6 = document.getElementById('C6').value.padStart(2, '0');
+color7 = document.getElementById('C7').value.padStart(2, '0');
+color8 = document.getElementById('C8').value.padStart(2, '0');
+color9 = document.getElementById('C9').value.padStart(2, '0');
+color10 = document.getElementById('C10').value.padStart(2, '0');
+
+colorh1 = parseInt(color1, 10).toString(16)
+colorh2 = parseInt(color2, 10).toString(16)
+colorh3 = parseInt(color3, 10).toString(16)
+colorh4 = parseInt(color4, 10).toString(16)
+colorh5 = parseInt(color5, 10).toString(16)
+colorh6 = parseInt(color6, 10).toString(16)
+colorh7 = parseInt(color7, 10).toString(16)
+colorh8 = parseInt(color8, 10).toString(16)
+colorh9 = parseInt(color9, 10).toString(16)
+colorh10 = parseInt(color10, 10).toString(16)
+
+
+
+    let loc = '/saver?session=' + {{session}} + '&color=' + '%25' + colorh1.padStart(2, '0') + '%25' + colorh2.padStart(2, '0') + '%25' + colorh3.padStart(2, '0') + '%25' + colorh4.padStart(2, '0') + '%25' + colorh5.padStart(2, '0') + '%25' + colorh6.padStart(2, '0') + '%25' + colorh7.padStart(2, '0') + '%25' + colorh8.padStart(2, '0') + '%25' + colorh9.padStart(2, '0') + '%25' + colorh10.padStart(2, '0') + '&skinId=' + document.getElementById('SkinID').value;
+	let decoded = decodeURI(loc);
+	document.getElementById("changeskin").href = decoded;
+
+    var skinviewerlink = 'data/viewskin.swf?SHOWBIG=1&SKINID=' + document.getElementById('SkinID').value + '&SKINCOLOR=' + '%' + colorh1.padStart(2, '0') + '%25' + colorh2.padStart(2, '0') + '%25' + colorh3.padStart(2, '0') + '%25' + colorh4.padStart(2, '0') + '%25' + colorh5.padStart(2, '0') + '%25' + colorh6.padStart(2, '0') + '%25' + colorh7.padStart(2, '0') + '%25' + colorh8.padStart(2, '0') + '%25' + colorh9.padStart(2, '0') + '%25' + colorh10.padStart(2, '0');
+	let decoded2 = decodeURI(skinviewerlink);
+	
+	document.getElementById("skinviewerframeprofil").src = decoded2;
+	document.getElementById("testskin99").innerHTML = decoded;
+	}
+	function validateinput0()
+{
+    var inputbox0 = document.getElementById("SkinID");
+    
+    if(isNaN(parseFloat(inputbox0.value)))
+    {
+        inputbox0.className = "red";
+    }
+    else
+    {
+        inputbox0.className = "green";
+    }
+}
+	function validateinput1()
+{
+    var inputbox1 = document.getElementById("C1");
+    
+    if(isNaN(parseFloat(inputbox1.value)))
+    {
+        inputbox1.className = "red";
+    }
+    else
+    {
+        inputbox1.className = "green";
+    }
+}
+	function validateinput2()
+{
+    var inputbox2 = document.getElementById("C2");
+    
+    if(isNaN(parseFloat(inputbox2.value)))
+    {
+        inputbox2.className = "red";
+    }
+    else
+    {
+        inputbox2.className = "green";
+    }
+}
+	function validateinput3()
+{
+    var inputbox3 = document.getElementById("C3");
+    
+    if(isNaN(parseFloat(inputbox3.value)))
+    {
+        inputbox3.className = "red";
+    }
+    else
+    {
+        inputbox3.className = "green";
+    }
+}
+	function validateinput4()
+{
+    var inputbox4 = document.getElementById("C4");
+    
+    if(isNaN(parseFloat(inputbox4.value)))
+    {
+        inputbox4.className = "red";
+    }
+    else
+    {
+        inputbox4.className = "green";
+    }
+}
+	function validateinput5()
+{
+    var inputbox5 = document.getElementById("C5");
+    
+    if(isNaN(parseFloat(inputbox5.value)))
+    {
+        inputbox5.className = "red";
+    }
+    else
+    {
+        inputbox5.className = "green";
+    }
+}
+	function validateinput6()
+{
+    var inputbox6 = document.getElementById("C6");
+    
+    if(isNaN(parseFloat(inputbox6.value)))
+    {
+        inputbox6.className = "red";
+    }
+    else
+    {
+        inputbox6.className = "green";
+    }
+}
+	function validateinput7()
+{
+    var inputbox7 = document.getElementById("C7");
+    
+    if(isNaN(parseFloat(inputbox7.value)))
+    {
+        inputbox7.className = "red";
+    }
+    else
+    {
+        inputbox7.className = "green";
+    }
+}
+	function validateinput8()
+{
+    var inputbox8 = document.getElementById("C8");
+    
+    if(isNaN(parseFloat(inputbox8.value)))
+    {
+        inputbox8.className = "red";
+    }
+    else
+    {
+        inputbox8.className = "green";
+    }
+}
+	function validateinput9()
+{
+    var inputbox9 = document.getElementById("C9");
+    
+    if(isNaN(parseFloat(inputbox9.value)))
+    {
+        inputbox9.className = "red";
+    }
+    else
+    {
+        inputbox9.className = "green";
+    }
+}
+	function validateinput10()
+{
+    var inputbox10 = document.getElementById("C10");
+    
+    if(isNaN(parseFloat(inputbox10.value)))
+    {
+        inputbox10.className = "red";
+    }
+    else
+    {
+        inputbox10.className = "green";
+    }
+}
+
+				</script>
+				</content>
+</body>
+
+</html>
