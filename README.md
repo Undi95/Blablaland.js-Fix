@@ -1,11 +1,12 @@
 # Blablaland.js
 
-Un retro Open Source développé par GregVido v0.0.3 !
+Un retro Open Source développé par GregVido v0.0.4.1 !
+(Puis bricolé un peu par Undi un peu aussi, puis par Yovach, puis par Feavy.)
 
 ## Installation
 
-Pour utiliser se rétro, vous allez avoir besoin de télécharger nodejs (https://nodejs.org/en/).
-Une fois télécharger, executez-le et installez-le.
+Pour utiliser ce rétro, vous allez avoir besoin de nodejs (https://nodejs.org/en/).
+Une fois téléchargé, exécutez-le et installez-le.
 Créez un dossier, n'importe ou sur votre ordinateur, que vous nommerez 'blablaland.js' pour cet exemple, nous allons en créer un sur le bureau.
 Ouvrez l'invite de commande (windows + r > cmd), et entrez la commande
 ```
@@ -15,7 +16,28 @@ Ensuite, nous allons démarrer le serveur, en effectuant la commande
 ```
 npm start
 ```
-Enjoy ! Vous pouvez désormer accéder à l'émulateur en allant sur http://localhost =) 
+Enjoy ! Vous pouvez désormer accéder à l'émulateur en allant sur http://localhost
+
+
+NEW NEW NEW NEW NEW
+
+Méthode plus simple :
+	1. Téléchargez le pack
+	2. Allez dans le dossier Serveur
+	3. Ouvrez launch.bat
+	4. Enjoy! Votre serveur se lance si nodejs est bien installé
+	5. Ouvrez launch.bat dans dossier Client pour vous connecter à celui-ci.
+
+## NEWS v0.0.4.1
+
+	- Ajout du launcher open-blablaland modifié par Yovach
+	- Ajout de l'interface graphique du site par Feavy
+	- Ajout d'une page de changement de skin
+	- Ajout d'une page d'inscription
+	- Ajout de mon mod Blablaland 2016 à l'id skin 999 (/cmd / /help pour les commandes de tests)
+	- Ajout de skinviewer, pour voir notre perso sur le site
+	- Ajout de quelques skins de blablaland.fun (id > 700)
+	- Ajout de 2 .bat pour vous faciliter la vie
 
 ## NEWS v0.0.4
 
@@ -57,7 +79,14 @@ Il se trouve dans le dossier Server, voici le fonctionnement:
 
 ## Client
 
-Le client est un outil pour se connecter au serveur, si vous décidé d'en créer un, vérifiez que votre serveur est bien publique, et envoyé le nom de domaine/ip au personnes avec qui vous voulez jouer. <br />
-La personne aura juste à renseigner le nom de domaine/ip dans le client (host) pour se connecter au serveur.
+Le client est le même que celui de blablaland.fun.
+Flash player est inclu dans le client.
+Un fichier .bat vous permet de lancer le serveur directement.
+ngrok vous permet de partager votre serveur publiquement, <a href="https://ngrok.com/">plus d'info...<a>
 
-<b>À Noter qu'il faut installer flash player 11 pour internet explorer, vous pouvez le faire en <a href="http://www.oldversion.fr/windows/macromedia-flash-player-11-3-300-257-ie">cliquant ici</a>.</b>
+Pseudo : Admin
+Pass : Admin
+
+## Regrets
+
+J'ai perdu 4 jours de ma vie et tout le monde se fou de ma poire sur Discord jpp
