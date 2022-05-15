@@ -5,30 +5,30 @@
         "password": "Admin",
         "skin": {
             "color": [
-                3,
+                0,
                 59,
                 0,
                 76,
                 0,
                 76,
                 0,
-                76,
-                76,
-                76
+                0,
+                0,
+                0
             ],
             "id": 999,
-            "posX": 76950,
-            "posY": 9450,
+            "posX": 35650,
+            "posY": 27450,
             "direction": true
         },
         "map": {
-            "id": 103
+            "id": 142
         },
         "sexe": 0,
         "bbl": 69,
         "xp": 420,
         "chatColor": "0129402a0a20333334",
-        "session": "3220991",
+        "session": "6022563",
         "time": 1571470104136,
         "role": "Admin"
     }

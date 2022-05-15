@@ -2,6 +2,37 @@
 <header>
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+	<style>
+.credit {
+	-moz-border-radius-topright: 30px;
+	-webkit-border-top-right-radius: 30px;
+	border-top-right-radius: 30px;
+	-moz-border-radius-bottomleft: 30px;
+	-webkit-border-bottom-left-radius: 30px;
+	border-bottom-left-radius: 30px;
+	border: 1px solid #848484;
+	outline:0;
+	height:25px;
+	width: 275px;
+	padding-right:15px;
+	padding-left:15px;
+}
+.bn29 {
+
+                    display: inline-block;
+                    outline: none;
+                    cursor: pointer;
+                    font-size: 16px;
+                    line-height: 20px;
+                    font-weight: 600;
+                    border-radius: 8px;
+                    padding: 14px 24px;
+                    border: none;
+                    transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
+                    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+                    color: #fff;
+                }
+</style>
 </header>
 
 <body>
@@ -11,8 +42,11 @@
         <header_info>
             <header_profil style="padding-top:8px;">
                 <my_avatar>
-                    <img src="img/tmp_profil.png">
-                </my_avatar>
+				<br><br>
+				<div class="skinviewer">
+                    {{skinviewer}}
+                </div>
+				</my_avatar>
                 <profil_login_box>
                     {{form}}
                 </profil_login_box>
@@ -20,33 +54,47 @@
         </header_info>
         <menu>
             <ul>
-                <li><a href = "/"><span>Le Tchat</span></a></li>
+                <li><a href="/"><span>Le Tchat</span></a></li>
                 <li><a href="/inscription"><span>Inscription</span></a></li>
                 <li><a href="/info"><span>Information</span></a></li>
-				<li><a href="/skin"><span>Changer de skin</span></a></li>
+                <li><a href="/skin"><span>Changer de skin</span></a></li>
             </ul>
         </menu>
     </topsite>
-    <content>
-<label for="name">Pseudo (3 à 10 lettres):</label><br>
-<input type="text" id="name" name="name" size="10"><br>
-	   
-<label for="name">Mot de passe:</label><br>
-<input type="password" id="pass" name="pass" size="10"><br><br>
+    <content><table>
+<tbody>
+<tr>
+<td width="48%"><img class="fit-picture"
+     src="/img/canvas.png"</td>
 
-<input type="button" id="Signup" value="S'inscrire" onclick="signup()">
-<p id="test"></p>
-    </content>
-	<script>
-  function signup() {
-const Pseudo = document.getElementById('name').value;
-const Password = document.getElementById('pass').value;
-url = "/signup?validform=Inscription&con_pseudo=" + Pseudo + "&con_password=" + Password
-document.getElementById("Signup").href = url;
-window.location = url;
-  }
-  </script>
-  
+
+<td><div style="background-color:#009EE0;border-radius:25px;padding:20px">
+	<menusignup><label for="name" style="color:white">Pseudo:</label><br><br>
+        <input type="text" class="credit" id="name" name="name" size="10"><br><br>
+
+        <label for="name" style="color:white">Mot de passe:</label><br><br>
+        <input type="password" class="credit" id="pass" name="pass" size="10"><br><br>
+
+        <center><input class="bn29" type="button" id="Signup" value="S'inscrire" onclick="signup()"></center>
+        <p id="test"></p>
+    </menusignup>
+	</div></td>
+
+
+</tr>
+</tbody>
+</table>
+</content>
+    <script>
+        function signup() {
+            const Pseudo = document.getElementById('name').value;
+            const Password = document.getElementById('pass').value;
+            url = "/signup?validform=Inscription&con_pseudo=" + Pseudo + "&con_password=" + Password
+            document.getElementById("Signup").href = url;
+            window.location = url;
+        }
+    </script>
+
 </body>
 
 </html>

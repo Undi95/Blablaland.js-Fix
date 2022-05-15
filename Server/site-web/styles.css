@@ -430,3 +430,40 @@ a {
     position: relative;
     top: -110px;
 }
+
+menusignup {
+    z-index: 500;
+    position: relative;
+    height: 40px;
+    /* box-shadow: 0px 5px 10px rgba(0,0,0,0.65); */
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    margin-top: 0px;
+}
+
+#skindescriptionbox {
+	height: 170px;
+	width: 50%;
+	background-color:#FFFFFF;
+	margin: auto;
+	border-radius: 10px;
+	color: #FF0075;
+	border: #829FB6;
+    border-style: solid;
+	text-align: left;
+	font-size: 10px;
+	padding:5px;
+}
+
+#input[type=number] {
+	width: 100%; /* Full width */
+  padding: 12px; /* Some padding */ 
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px; /* Rounded borders */
+  box-sizing: border-box; /* Make sure that padding and width stays in place */
+  margin-top: 6px; /* Add a top margin */
+  margin-bottom: 16px; /* Bottom margin */
+};

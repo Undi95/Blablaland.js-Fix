@@ -10,6 +10,11 @@ var ServerBBL = require('./blablaland/blablaland.js');
 if (database.length > 2) database = JSON.parse(database);
 else database = {};
 
+var skindescrdatabase = fs.readFileSync("skindescrdatabase.json"); // Importation de la db des description de skins
+skindescrdatabase = JSON.parse(skindescrdatabase);
+var skinnamedatabase = fs.readFileSync("skinnamedatabase.json"); // Importation de la db des noms de skins
+skinnamedatabase = JSON.parse(skinnamedatabase);
+
 var port = 80;
 
 var request = require("request");
@@ -17,7 +22,7 @@ const config = JSON.parse(fs.readFileSync('config.json'));
 
 var servername = config.ip;
 
-request({ uri: "https://raw.githubusercontent.com/GregVido/blablaland.js/master/README.md" },
+request({ uri: "https://raw.githubusercontent.com/Undi95/Blablaland.js-Fix/master/README.md" },
     function (error, response, body) {
         const local = fs.readFileSync('../README.md', 'utf8');
 
@@ -67,6 +72,10 @@ app.get('/connexion', (req, res) => {
             if (database[id].pseudo.toUpperCase() == req.query.con_pseudo.toUpperCase()) {
                 if (database[id].password.toUpperCase() == req.query.con_password.toUpperCase()) {
                     req.session.username = database[id].pseudo;
+					req.session.skincolor = exportColor(database[id].skin.color);
+					req.session.skinid = database[id].skin.id;
+					req.session.bbl = database[id].bbl;
+					req.session.xp = database[id].xp;
                     database[id].session = (Math.floor(Math.random() * 9999999) + 1000000).toString();
                     req.session.session = database[id].session;
                     fs.writeFileSync("database.json", JSON.stringify(database, null, 4), "utf8");
@@ -81,6 +90,31 @@ app.get('/connexion', (req, res) => {
     }
 });
 
+app.get('/skininfo', (req, res) => {
+    if (req.query.validform == 'OK') {
+        for (var id in database) {
+            if (database[id].pseudo.toUpperCase() == req.query.m.toUpperCase()) {
+                    req.session.username = database[id].pseudo;
+					return res.send("/data/viewskin.swf?SHOWBIG=1&SKINID=" + database[id].skin.id + "&SKINCOLOR=" + exportColor(database[id].skin.color));
+            }
+        }
+        return res.send("/data/viewskin.swf?SHOWBIG=1&SKINID=7&SKINCOLOR=%01%01%59%2d%2d%3c%01%01%01%01");
+    }
+});
+
+app.get('/skinloader', (req, res) => {
+    if (req.query.validform == 'OK') {
+        for (var id in database) {
+            if (database[id].pseudo.toUpperCase() == req.query.m.toUpperCase()) {
+                    req.session.username = database[id].pseudo;
+					return res.send(database[id].skin.id + exportColor(database[id].skin.color));
+            }
+        }
+        return res.send("7%01%01%59%2d%2d%3c%01%01%01%01");
+    }
+});
+
+
 app.get('/saver', (req, res) => {
     if (req.query.session && req.query.color) {
         for (var id in database) {
@@ -93,6 +127,8 @@ app.get('/saver', (req, res) => {
             }
         }
         return res.redirect("/");
+		// return res.send("SUCCESS=" + req.session.session + "=" + database[id].pseudo + "=" + database[id].xp + "=" + database[id].bbl + "=" + database[id].skin.id + "=" + exportColor(database[id].skin.color));
+
     }
 });
 
@@ -154,36 +190,48 @@ app.get('/signup', (req, res) => {
 app.get('/', (req, res) => {
     var file = fs.readFileSync("site-web/index.html", 'utf8');
     var form = fs.readFileSync("site-web/form.html", 'utf8');
+	for (var id in database) {
     if (req.session.username) {
-        file = file.replace("{{form}}", `<h1>${req.session.username}</h1><br><a href="/disconnect">Déconnexion</a>`);
-        file = file.replace("{{session}}", req.session.session);
-		for (var id in database) {
-        file = file.replace("{{color}}", (database[id].skin.color));
-		file = file.replace("{{skinid}}", (database[id].skin.id));
-		}
+		req.session.skincolor = exportColor(database[id].skin.color);
+		req.session.skinid = database[id].skin.id;
+		req.session.bbl = database[id].bbl;
+		req.session.xp = database[id].xp;
+        file = file.replace("{{form}}", '<h1>' + req.session.username + '</h1><br><img src="img/picto_bbl.png"> ' + req.session.bbl + ' BBL <br><img src="img/picto_xp.png"> ' + req.session.xp + ' XP<br><a href="/disconnect">Déconnexion</a>');
+        file = file.replace("{{session}}", req.session.session)
+		file = file.replace("{{skinviewer}}", '<iframe allowfullscreen src="/data/viewskin.swf?SHOWBIG=1&SKINID=' + req.session.skinid + '&SKINCOLOR=' + req.session.skincolor + '" height="150" width="80" id="skinviewerframe"></iframe>');
 		} else {
         file = file.replace("{{form}}", form);
         file = file.replace("{{session}}", `0`);
-		file = file.replace("{{color}}", 0);
-		file = file.replace("{{skinid}}", 7);
+		file = file.replace("{{skinviewer}}", '<iframe allowfullscreen src="/data/viewskin.swf?SHOWBIG=1&SKINID=7&SKINCOLOR=%01%01%59%2c%2c%3c%01%01%01%01" height="150" width="80" id="skinviewerframe"></iframe>');
 		
     }
+	}
     if (req.session.message) {
         file = file.replace("<!-- {{message}} -->", `<message>${req.session.message}</message><br>`);
         req.session.message = undefined;
     }
     res.send(file);
 });
+
 app.get('/info', (req, res) => {
     var file = fs.readFileSync("site-web/info.html", 'utf8');
     var form = fs.readFileSync("site-web/form.html", 'utf8');
+	for (var id in database) {
     if (req.session.username) {
-        file = file.replace("{{form}}", `<h1>${req.session.username}</h1><br><a href="/disconnect">Déconnexion</a>`);
-        file = file.replace("{{session}}", req.session.session);
-    } else {
+		req.session.skincolor = exportColor(database[id].skin.color);
+		req.session.skinid = database[id].skin.id;
+		req.session.bbl = database[id].bbl;
+		req.session.xp = database[id].xp;
+        file = file.replace("{{form}}", '<h1>' + req.session.username + '</h1><br><img src="img/picto_bbl.png"> ' + req.session.bbl + ' BBL <br><img src="img/picto_xp.png"> ' + req.session.xp + ' XP<br><a href="/disconnect">Déconnexion</a>');
+        file = file.replace("{{session}}", req.session.session)
+		file = file.replace("{{skinviewer}}", '<iframe allowfullscreen src="/data/viewskin.swf?SHOWBIG=1&SKINID=' + req.session.skinid + '&SKINCOLOR=' + req.session.skincolor + '" height="150" width="80" id="skinviewerframe"></iframe>');
+		} else {
         file = file.replace("{{form}}", form);
         file = file.replace("{{session}}", `0`);
+		file = file.replace("{{skinviewer}}", '<iframe allowfullscreen src="/data/viewskin.swf?SHOWBIG=1&SKINID=7&SKINCOLOR=%01%01%59%2c%2c%3c%01%01%01%01" height="150" width="80" id="skinviewerframe"></iframe>');
+
     }
+	}
     if (req.session.message) {
         file = file.replace("<!-- {{message}} -->", `<message>${req.session.message}</message><br>`);
         req.session.message = undefined;
@@ -193,29 +241,84 @@ app.get('/info', (req, res) => {
 app.get('/skin', (req, res) => {
     var file = fs.readFileSync("site-web/skin.html", 'utf8');
     var form = fs.readFileSync("site-web/form.html", 'utf8');
+	for (var id in database) {
     if (req.session.username) {
-        file = file.replace("{{form}}", `<h1>${req.session.username}</h1><br><a href="/disconnect">Déconnexion</a>`);
+		req.session.skincolor = exportColor(database[id].skin.color);
+		req.session.skinid = database[id].skin.id;
+		req.session.bbl = database[id].bbl;
+		req.session.xp = database[id].xp;
+        file = file.replace("{{form}}", '<h1>' + req.session.username + '</h1><br><img src="img/picto_bbl.png"> ' + req.session.bbl + ' BBL <br><img src="img/picto_xp.png"> ' + req.session.xp + ' XP<br><a href="/disconnect">Déconnexion</a>');
         file = file.replace("{{session}}", req.session.session);
+		file = file.replace("{{pseudo}}", req.session.username);
+		file = file.replace("{{pseudo2}}", req.session.username);
+		file = file.replace("{{actualskin}}", '/data/viewskin.swf?SHOWBIG=1&SKINID=' + req.session.skinid + '&SKINCOLOR=' + req.session.skincolor);
+		file = file.replace("{{skinviewer}}", '<iframe allowfullscreen src="/data/viewskin.swf?SHOWBIG=1&SKINID=' + req.session.skinid + '&SKINCOLOR=' + req.session.skincolor + '" height="150" width="80" id="skinviewerframe"></iframe>');
+		if (req.session.skinid > 0 && req.session.skinid < 699)
+		{
+		file = file.replace("{{skinname}}", skinnamedatabase.skin[req.session.skinid - 1].site_titre);
+		file = file.replace("{{skindescr}}", skindescrdatabase.skin[req.session.skinid - 1].site_descr);
+		}
+		else {
+		file = file.replace("{{skinname}}", "-");
+		file = file.replace("{{skindescr}}", "-");
+		}
     } else {
         file = file.replace("{{form}}", form);
         file = file.replace("{{session}}", `0`);
-    }
+		file = file.replace("{{actualskin}}", '/data/viewskin.swf?SHOWBIG=1&SKINID=7&SKINCOLOR=%01%01%59%2c%2c%3c%01%01%01%01');
+		file = file.replace("{{skinviewer}}", '<iframe allowfullscreen src="/data/viewskin.swf?SHOWBIG=1&SKINID=7&SKINCOLOR=%01%01%59%2c%2c%3c%01%01%01%01" height="150" width="80" id="skinviewerframe"></iframe>');
+		file = file.replace("{{skinname}}", "Touriste");
+		file = file.replace("{{skindescr}}", "L'Icône de la v1! L'Emblème, le symbole représentant le tout premier personnage dessiné pour blablaland!");
+	}
+	}
     if (req.session.message) {
         file = file.replace("<!-- {{message}} -->", `<message>${req.session.message}</message><br>`);
         req.session.message = undefined;
     }
     res.send(file);
 });
+
+app.get('/skindb', (req, res) => {
+	if (req.query.search == 'description' && req.query.id_skin) {
+		if (req.query.id_skin > 0 && req.query.id_skin < 699) {
+		var skinid = req.query.id_skin;
+		return res.send(skindescrdatabase.skin[skinid].site_descr);
+		}
+		else {
+		return res.send("-");	
+		}
+	}
+		if (req.query.search == 'idofskin' && req.query.id_skin) {
+	if (req.query.id_skin > 0 && req.query.id_skin < 699) {
+		var skinid = req.query.id_skin;
+		return res.send(skinnamedatabase.skin[skinid].site_titre);
+		}
+		else {
+		return res.send("-");	
+	}
+		}	
+});
+
+
 app.get('/inscription', (req, res) => {
     var file = fs.readFileSync("site-web/inscription.html", 'utf8');
     var form = fs.readFileSync("site-web/form.html", 'utf8');
+	for (var id in database) {
     if (req.session.username) {
-        file = file.replace("{{form}}", `<h1>${req.session.username}</h1><br><a href="/disconnect">Déconnexion</a>`);
-        file = file.replace("{{session}}", req.session.session);
-    } else {
+		req.session.skincolor = exportColor(database[id].skin.color);
+		req.session.skinid = database[id].skin.id;
+		req.session.bbl = database[id].bbl;
+		req.session.xp = database[id].xp;
+        file = file.replace("{{form}}", '<h1>' + req.session.username + '</h1><br><img src="img/picto_bbl.png"> ' + req.session.bbl + ' BBL <br><img src="img/picto_xp.png"> ' + req.session.xp + ' XP<br><a href="/disconnect">Déconnexion</a>');
+        file = file.replace("{{session}}", req.session.session)
+		file = file.replace("{{skinviewer}}", '<iframe allowfullscreen src="/data/viewskin.swf?SHOWBIG=1&SKINID=' + req.session.skinid + '&SKINCOLOR=' + req.session.skincolor + '" height="150" width="80" id="skinviewerframe"></iframe>');
+		} else {
         file = file.replace("{{form}}", form);
         file = file.replace("{{session}}", `0`);
+		file = file.replace("{{skinviewer}}", '<iframe allowfullscreen src="/data/viewskin.swf?SHOWBIG=1&SKINID=7&SKINCOLOR=%01%01%59%2c%2c%3c%01%01%01%01" height="150" width="80" id="skinviewerframe"></iframe>');
+		
     }
+	}
     if (req.session.message) {
         file = file.replace("<!-- {{message}} -->", `<message>${req.session.message}</message><br>`);
         req.session.message = undefined;

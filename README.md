@@ -1,9 +1,10 @@
 # Blablaland.js
 
-Un retro Open Source développé par GregVido v0.0.4.1 !
+Un retro Open Source développé par GregVido v0.0.4.2 !
 (Puis bricolé un peu par Undi un peu aussi, puis par Yovach, puis par Feavy.)
 
 ## Installation
+
 
 Pour utiliser ce rétro, vous allez avoir besoin de nodejs (https://nodejs.org/en/).
 Une fois téléchargé, exécutez-le et installez-le.
@@ -18,15 +19,26 @@ npm start
 ```
 Enjoy ! Vous pouvez désormer accéder à l'émulateur en allant sur http://localhost
 
-
 NEW NEW NEW NEW NEW
 
-Méthode plus simple :
-	1. Téléchargez le pack
-	2. Allez dans le dossier Serveur
-	3. Ouvrez launch.bat
-	4. Enjoy! Votre serveur se lance si nodejs est bien installé
-	5. Ouvrez launch.bat dans dossier Client pour vous connecter à celui-ci.
+Méthode la plus simple :
+
+	- Téléchargez le pack
+	- Allez dans le dossier Serveur
+	- Ouvrez launch.bat
+	- Enjoy! Votre serveur se lance si nodejs est bien installé
+	- Décompressez le launcher
+	- Ouvrez launch.bat dans dossier Client pour vous connecter à votre serveur.
+
+## NEWS v0.0.4.2
+
+	- Ajout de la BDD complète des skins (Noms + Descriptions)
+	- Fix du Skinviewer, sur toutes les pages
+	- Menu amélioré de changement de skin, avec noms et infos
+	- Ajout de plusieurs outils pour facilité l'import/export des skins et leurs couleurs
+	- Ajout d'un plus beau formulaire d'inscription (à l'arrache)
+	- Préparation pour d'autres features.... si j'ai pas la flemme
+	
 
 ## NEWS v0.0.4.1
 
@@ -86,7 +98,3 @@ ngrok vous permet de partager votre serveur publiquement, <a href="https://ngrok
 
 Pseudo : Admin
 Pass : Admin
-
-## Regrets
-
-J'ai perdu 4 jours de ma vie et tout le monde se fou de ma poire sur Discord jpp
