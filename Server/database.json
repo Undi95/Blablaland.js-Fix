@@ -2,14 +2,14 @@
     "1": {
         "id": 1,
         "pseudo": "Admin",
-        "password": "Admin",
+        "password": "afd8d0067ac85cfff7760bad9cc34251ad33c512376494d33c78e1aa951ef38d11fa3770c9b8d702f8ab6db6e2e23886850528017420a3185acce56db7fd9530",
         "skin": {
             "color": [
-                0,
+                19,
                 59,
-                0,
+                10,
                 76,
-                0,
+                10,
                 76,
                 0,
                 0,
@@ -17,19 +17,19 @@
                 0
             ],
             "id": 999,
-            "posX": 35650,
-            "posY": 27450,
-            "direction": true
+            "posX": 78750,
+            "posY": 26750,
+            "direction": false
         },
         "map": {
-            "id": 142
+            "id": 9
         },
         "sexe": 0,
-        "bbl": 69,
-        "xp": 420,
+        "bbl": 420,
+        "xp": 69,
         "chatColor": "0129402a0a20333334",
-        "session": "6022563",
-        "time": 1571470104136,
+        "session": "3300599",
+        "time": 1652738126462,
         "role": "Admin"
     }
 }

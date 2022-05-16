@@ -1,34 +1,42 @@
 # Blablaland.js
 
-Un retro Open Source développé par GregVido v0.0.4.2 !
-(Puis bricolé un peu par Undi un peu aussi, puis par Yovach, puis par Feavy.)
+Un retro Open Source développé par GregVido v0.0.4.3 !
+Amélioré par xcoder et Undi.
 
 ## Installation
 
 
 Pour utiliser ce rétro, vous allez avoir besoin de nodejs (https://nodejs.org/en/).
+D'un navigateur qui supporte flash comme Pale Moon (https://www.palemoon.org/download.shtml) ou du launcher dans ce git.
 Une fois téléchargé, exécutez-le et installez-le.
 Créez un dossier, n'importe ou sur votre ordinateur, que vous nommerez 'blablaland.js' pour cet exemple, nous allons en créer un sur le bureau.
-Ouvrez l'invite de commande (windows + r > cmd), et entrez la commande
+Ouvrez l'invite de commande (windows + r > cmd), et entrez la commande :
 ```
 cd Desktop\blablaland.js
 ```
-Ensuite, nous allons démarrer le serveur, en effectuant la commande 
+Ensuite, nous allons démarrer le serveur, en effectuant la commande:
 ```
 npm start
 ```
-Enjoy ! Vous pouvez désormer accéder à l'émulateur en allant sur http://localhost
+Enjoy ! Vous pouvez désormer accéder à l'émulateur en allant sur http://localhost avec un navigateur supportant flash player.
 
-NEW NEW NEW NEW NEW
-
-Méthode la plus simple :
+Méthode la plus simple:
 
 	- Téléchargez le pack
 	- Allez dans le dossier Serveur
 	- Ouvrez launch.bat
 	- Enjoy! Votre serveur se lance si nodejs est bien installé
 	- Décompressez le launcher
-	- Ouvrez launch.bat dans dossier Client pour vous connecter à votre serveur.
+	- Ouvrez launch.bat dans dossier Client pour vous connecter à votre serveur
+
+## NEWS v0.0.4.3
+
+	- Ajout du sélecteur de skins officiel de Blablaland
+	- Fix du Skinviewer, sur toutes les pages (again)
+	- Retrait de l'anti-mod par défaut, crash sur certains serveurs
+	- Ajout d'une clé d'encryption pour protéger les mots de passe (changez là!)
+	- Retrait de bugs sur le site et sur le serveur
+	- Nettoyage partiel du code
 
 ## NEWS v0.0.4.2
 
@@ -39,7 +47,6 @@ Méthode la plus simple :
 	- Ajout d'un plus beau formulaire d'inscription (à l'arrache)
 	- Préparation pour d'autres features.... si j'ai pas la flemme
 	
-
 ## NEWS v0.0.4.1
 
 	- Ajout du launcher open-blablaland modifié par Yovach
@@ -96,5 +103,5 @@ Flash player est inclu dans le client.
 Un fichier .bat vous permet de lancer le serveur directement.
 ngrok vous permet de partager votre serveur publiquement, <a href="https://ngrok.com/">plus d'info...<a>
 
-Pseudo : Admin
-Pass : Admin
+Pseudo: Admin
+Pass: Admin000

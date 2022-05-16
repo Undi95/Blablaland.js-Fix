@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/GregVido/blablaland.js#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "buffer-split": "^1.0.0",
+    "crypto-js": "^4.1.1",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "request": "^2.88.2"

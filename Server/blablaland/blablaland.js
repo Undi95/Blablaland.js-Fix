@@ -12,8 +12,8 @@ var rawdata = fs.readFileSync('config.json');
 var config = JSON.parse(rawdata);
 
 var powerInfo = {
-    10000: [2, 1, 99999, 5, 5, new SocketMessage()],
-    10001: [2, 2, 99999, 5, 5, new SocketMessage()],
+    //10000: [2, 1, 99999, 5, 5, new SocketMessage()],
+    //10001: [2, 2, 99999, 5, 5, new SocketMessage()],
     10002: [2, 3, 99999, 5, 5, new SocketMessage()],
     10003: [2, 4, 0, 5, 5, new SocketMessage()],
     10004: [2, 5, 0, 5, 5, new SocketMessage()],
@@ -35,7 +35,8 @@ class BblCamera {
         this.methodeId = 3;
         this.mapLoaded = false;
         this.mort = false;
-        this.allowChat = false;
+        this.allowChat = true; // Protection anti mod désactivée
+	// this.allowChat = false; -> Protection anti mod activée
         this.transportToPlanete = 0;
     }
     getUserByUid(uid) {
@@ -232,8 +233,8 @@ class BblCamera {
                     packet = new SocketMessage(5, 11, this);
                     packet.bitWriteBoolean(true); //html
                     packet.bitWriteBoolean(false); //alerte
-                    packet.bitWriteString(`\n<font color=\'#022ebf\'>Bienvenue sur <font color=\'#bf0202\'><a href="https://github.com/GregVido/blablaland.js" target="_blank">blablaland.js</a></font> ! [v0.0.4] \
-                    \nDévelopper : <font color=\'#bf0202\'><a href="https://www.youtube.com/gregvido" target="_blank" >GregVido</a></font>\nBricoleur : <font color=\'#bf0202\'>Undi</font>`);
+                    packet.bitWriteString(`\n<font color=\'#022ebf\'>Bienvenue sur <font color=\'#bf0202\'><a href="https://github.com/Undi95/Blablaland.js-Fix" target="_blank">blablaland.js</a></font> ! [v0.0.4.3] \
+                    \nDévelopper : <font color=\'#bf0202\'>GregVido</font>\nBricoleurs : <font color=\'#bf0202\'>Undi, xcoder</font>`);
                     this.send(packet);
                 }
             }
@@ -330,6 +331,7 @@ class BblLogged extends BblCamera {
                         this.bbl = this.server.database[id].bbl;
                         this.mainUser.chatColor = this.server.database[id].chatColor;
                         if(this.server.database[id].role == "Admin") this.grade = 1000;
+						if(this.server.database[id].role == "Modo") this.grade = 800;
                         this.isTouriste = false;
                     }
                 }
@@ -397,47 +399,47 @@ class BblLogged extends BblCamera {
                 this.mainUser.speed.x = 0;
                 this.mainUser.speed.y = 0;
                 this.reloadPlayerState();
-            } else if (stype == 16) {
-                const folder = ["skin", "fx", "map", "smiley"];
-                const name = ["skin.swf", "fx.swf", "map.swf", "SmileyPack.swf"]
-                const type = loc5.bitReadUnsignedInt(4) - 1;
-                const id = loc5.bitReadUnsignedInt(16);
-                const byteReceveid = loc5.bitReadUnsignedInt(32);
-                if(!fs.existsSync(`site-web/data/${folder[type]}/${id}/`)) {
-                    this.sendError("Les fichiers clients ne sont pas valide.");
-                    return;
-                }
-                const file = fs.readFileSync(`site-web/data/${folder[type]}/${id}/${name[type]}`);
-                var _this = this;
-                zlib.inflate(file.slice(8), function(err, buf) {
-                    var data = Buffer.from(file.slice(0, 8)); 
-                    const unzip = Buffer.concat([data, buf]);
-                    var byte = 0;
-                    for (var loc4 = 0; loc4 < unzip.length - 8; loc4 += 5) {
-                        byte = byte + loc4 * unzip[loc4 + 8];
-                    }
-                    byte = ToUint32(byte);
-                    if(byte != byteReceveid) _this.sendError("Les fichiers clients ne sont pas valide.");
-                });
-            } else if (stype == 18) {
-                var id = loc5.bitReadUnsignedInt(32);
-                if(id == this.chatBuffer.id) {
-                    const chat = fs.readFileSync(`site-web/chat/chat.swf`);
-                    var _this = this;
-                    zlib.inflate(chat.slice(8), function(err, buf) {
-                        var data = Buffer.from(chat.slice(0, 8)); 
-                        const unzip = Buffer.concat([data, buf]);
-                        for(var loc19 = 0; loc19 < _this.chatBuffer.size; loc19++) {
-                            const loc20 = (loc19 + _this.chatBuffer.position) % (unzip.length - 8);
-                            _this.allowChat = true;
-                            if(unzip[loc20 + 8] != loc5.bitReadUnsignedInt(8)){
-                                _this.sendError("Les fichiers clients ne sont pas valide.");
-                                return;
-                            }
-                        }
-                    });
-                } else _this.sendError("Les fichiers clients ne sont pas valide.");
-            }
+             } // else if (stype == 16) {
+                // const folder = ["skin", "fx", "map", "smiley"];
+                // const name = ["skin.swf", "fx.swf", "map.swf", "SmileyPack.swf"]
+                // const type = loc5.bitReadUnsignedInt(4) - 1;
+                // const id = loc5.bitReadUnsignedInt(16);
+                // const byteReceveid = loc5.bitReadUnsignedInt(32);
+                // if(!fs.existsSync(`site-web/data/${folder[type]}/${id}/`)) {
+                    // this.sendError("Les fichiers clients ne sont pas valide.");
+                    // return;
+                // }
+                // const file = fs.readFileSync(`site-web/data/${folder[type]}/${id}/${name[type]}`);
+                // var _this = this;
+                // zlib.inflate(file.slice(8), function(err, buf) {
+                    // var data = Buffer.from(file.slice(0, 8)); 
+                    // const unzip = Buffer.concat([data, buf]);
+                    // var byte = 0;
+                    // for (var loc4 = 0; loc4 < unzip.length - 8; loc4 += 5) {
+                        // byte = byte + loc4 * unzip[loc4 + 8];
+                    // }
+                    // byte = ToUint32(byte);
+                    // if(byte != byteReceveid) _this.sendError("Les fichiers clients ne sont pas valide.");
+                // });
+            // } else if (stype == 18) {
+                // var id = loc5.bitReadUnsignedInt(32);
+                // if(id == this.chatBuffer.id) {
+                    // const chat = fs.readFileSync(`site-web/chat/chat.swf`);
+                    // var _this = this;
+                    // zlib.inflate(chat.slice(8), function(err, buf) {
+                        // var data = Buffer.from(chat.slice(0, 8)); 
+                        // const unzip = Buffer.concat([data, buf]);
+                        // for(var loc19 = 0; loc19 < _this.chatBuffer.size; loc19++) {
+                            // const loc20 = (loc19 + _this.chatBuffer.position) % (unzip.length - 8);
+                            // _this.allowChat = true;
+                            // if(unzip[loc20 + 8] != loc5.bitReadUnsignedInt(8)){
+                                // _this.sendError("Les fichiers clients ne sont pas valide.");
+                                // return;
+                            // }
+                        // }
+                    // });
+                // } else _this.sendError("Les fichiers clients ne sont pas valide.");
+            // }
         } else if (type == 2) {
             if(!this.mapLoaded) return;
             if (stype == 2 || stype == 1) {
