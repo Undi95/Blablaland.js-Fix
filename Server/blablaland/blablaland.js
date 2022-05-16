@@ -397,7 +397,7 @@ class BblLogged extends BblCamera {
                     packet.bitWriteUnsignedInt(GlobalProperties.BIT_USER_ID, userMP.uid);
                     packet.bitWriteString(this.pseudo);
                     packet.bitWriteString(text);
-                    this.map.maps[this.mapId].sendAll(packet);
+                    userMP.send(packet);
                 } else {
                     packet = new SocketMessage(5, 11);
                     packet.bitWriteUnsignedInt(GlobalProperties.BIT_MAP_ID, this.mapId); 
