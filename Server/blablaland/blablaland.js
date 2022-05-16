@@ -367,8 +367,8 @@ class BblLogged extends BblCamera {
                     if (commandes[1]) {
                         let pseudo = commandes[1];
                         let userKick = this.getUserByPseudo(pseudo);
-                        if (userKick) {
-                            userKick.sendError(`Vous avez été kické => ${commandes[2]}`);
+                        if (userKick && this.grade >= 800) {
+                            userKick.sendError(`Vous avez été kické par ${this.pseudo} => ${commandes[2]}`);
                         }
                     }
                 }
