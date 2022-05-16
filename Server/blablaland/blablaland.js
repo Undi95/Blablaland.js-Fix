@@ -45,6 +45,14 @@ class BblCamera {
         }
         return null;
     }
+
+    getUserByPseudo(pseudo) {
+        for(var i in this.server.userList) {
+            if(this.server.userList[i].pseudo.toLowerCase() == pseudo.toLowerCase()) return this.server.userList[i];
+        }
+        return null;
+    }
+
     userSmileyEvent(param1) {
         for (var i in Array(14).keys()) {
             param1.bitWriteBoolean(true);
@@ -355,6 +363,14 @@ class BblLogged extends BblCamera {
                 } else if(commandes[0] == "!tp") {
                     this.teleportToMap(this.cameraId, parseInt(commandes[1]), this.serverId, 4);
                     return;
+                } else if (commandes[0] == "!kick") {
+                    if (commandes[1]) {
+                        let pseudo = commandes[1];
+                        let userKick = this.getUserByPseudo(pseudo);
+                        if (userKick) {
+                            userKick.sendError(`Vous avez été kické => ${commandes[2]}`);
+                        }
+                    }
                 }
                 packet = new SocketMessage(5, 7, this);
                 packet.bitWriteBoolean(true); //html
@@ -368,7 +384,31 @@ class BblLogged extends BblCamera {
                 packet.bitWriteUnsignedInt(3, action);
                 this.map.maps[this.mapId].sendAll(packet);
                 this.updateDodo(false);
-            } else if (stype == 8) {
+            } else if(stype == 5) {
+                var pseudo = loc5.bitReadString()
+                var text = loc5.bitReadString()
+
+                var userMP = this.getUserByPseudo(pseudo);
+                if (userMP) {
+                    packet = new SocketMessage(1, 5);
+                    packet.bitWriteBoolean(true); //html
+                    packet.bitWriteBoolean(false); //modo
+                    packet.bitWriteUnsignedInt(GlobalProperties.BIT_USER_PID, userMP.pid);
+                    packet.bitWriteUnsignedInt(GlobalProperties.BIT_USER_ID, userMP.uid);
+                    packet.bitWriteString(this.pseudo);
+                    packet.bitWriteString(text);
+                    this.map.maps[this.mapId].sendAll(packet);
+                } else {
+                    packet = new SocketMessage(5, 11);
+                    packet.bitWriteUnsignedInt(GlobalProperties.BIT_MAP_ID, this.mapId); 
+                    packet.bitWriteUnsignedInt(GlobalProperties.BIT_SERVER_ID, this.serverId); 
+                    packet.bitWriteBoolean(false); 
+                    packet.bitWriteBoolean(false); 
+                    packet.bitWriteString(`${pseudo} n'est pas connecté`);
+                    this.send(packet)
+                }
+
+            }else if (stype == 8) {
                 var packId = loc5.bitReadUnsignedInt(GlobalProperties.BIT_SMILEY_PACK_ID);
                 var smileId = loc5.bitReadUnsignedInt(GlobalProperties.BIT_SMILEY_ID);
                 var data = loc5.bitReadBinaryData();

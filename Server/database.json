@@ -17,8 +17,8 @@
                 0
             ],
             "id": 999,
-            "posX": 78750,
-            "posY": 26750,
+            "posX": 70550,
+            "posY": 36750,
             "direction": false
         },
         "map": {
@@ -28,7 +28,7 @@
         "bbl": 420,
         "xp": 69,
         "chatColor": "0129402a0a20333334",
-        "session": "3300599",
+        "session": "6701522",
         "time": 1652738126462,
         "role": "Admin"
     }
