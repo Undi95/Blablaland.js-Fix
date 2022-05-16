@@ -355,7 +355,8 @@ class BblLogged extends BblCamera {
                 var commandes = text.split(" ");
                 if(text == "!info") {
                     packet = new SocketMessage(5, 11, this);
-                    packet.bitWriteBoolean(true); //html
+                    packet.bitWriteBoolean(false); //html
+					// packet.bitWriteBoolean(true); //html
                     packet.bitWriteBoolean(false); //alerte
                     packet.bitWriteString(`${this.mapId}: [${this.mainUser.position.x}, ${this.mainUser.position.y}],`);
                     this.send(packet);
@@ -371,6 +372,7 @@ class BblLogged extends BblCamera {
                             userKick.sendError(`Vous avez été kické par ${this.pseudo} => ${commandes[2]}`);
                         }
                     }
+					return;
                 }
                 packet = new SocketMessage(5, 7, this);
                 packet.bitWriteBoolean(true); //html
