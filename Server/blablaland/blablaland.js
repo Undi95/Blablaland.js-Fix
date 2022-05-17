@@ -20,6 +20,8 @@ var powerInfo = {
     10005: [2, 6, 0, 5, 5, new SocketMessage()]
 };
 
+var nbSmiley = 15;
+
 function modulo(a, b) {
     return a - Math.floor(a/b)*b;
 }
@@ -54,10 +56,12 @@ class BblCamera {
     }
 
     userSmileyEvent(param1) {
-        for (var i in Array(14).keys()) {
+		var i = 1;
+        while (i < nbSmiley) {
             param1.bitWriteBoolean(true);
             param1.bitWriteUnsignedInt(8, 0);
             param1.bitWriteUnsignedInt(GlobalProperties.BIT_SMILEY_PACK_ID, i);
+			i = i + 1;
         }
         param1.bitWriteBoolean(false);
     }
@@ -370,7 +374,6 @@ class BblLogged extends BblCamera {
                         let userKick = this.getUserByPseudo(pseudo);
                         if (userKick && this.grade >= 800) {
 						var msg = commandes.slice(2);
-						console.log(msg);
                             userKick.sendError(`Vous avez été kické par ${this.pseudo} => ${msg.toString().replace(/,/g," ")}`);
                         }
                     }
