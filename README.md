@@ -8,7 +8,7 @@ Amélioré par xcoder et Undi.
 
 Pour utiliser ce rétro, vous allez avoir besoin de nodejs (https://nodejs.org/en/).  
 D'un navigateur qui supporte flash comme Pale Moon (https://www.palemoon.org/download.shtml).  
-Et Flash Player (https://ia801806.us.archive.org/13/items/flashplayer32_0r0_371_win/flashplayer32_0r0_371_win.msi)  
+Et Flash Player (https://ia801806.us.archive.org/13/items/flashplayer32_0r0_371_win/flashplayer32_0r0_371_win.msi).  
 
 Ou du launcher disponible dans ce git.  
 Une fois téléchargé, exécutez-le et installez-le.  
