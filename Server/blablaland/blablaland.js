@@ -373,7 +373,7 @@ class BblLogged extends BblCamera {
                         }
                     }
 					return;
-                }
+				}
                 packet = new SocketMessage(5, 7, this);
                 packet.bitWriteBoolean(true); //html
                 packet.bitWriteBoolean(false); //modo
@@ -427,6 +427,12 @@ class BblLogged extends BblCamera {
             } else if (stype == 9) {
                 var msg = loc5.bitReadString();
                 var methode = loc5.bitReadUnsignedInt(8);
+				if (msg) {
+					msg = `${this.pseudo} : ${msg}`
+				} 
+				else {
+					msg = `Que le blablateur ${this.pseudo} repose en paix`;
+				}
                 this.die(msg, methode);
             } else if (stype == 10) {
                 this.mainUser.position.y = 5000;
