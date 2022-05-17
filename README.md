@@ -6,11 +6,11 @@ Amélioré par xcoder et Undi.
 ## Installation
 
 
-Pour utiliser ce rétro, vous allez avoir besoin de nodejs (https://nodejs.org/en/).
-D'un navigateur qui supporte flash comme Pale Moon (https://www.palemoon.org/download.shtml) ou du launcher dans ce git.
-Une fois téléchargé, exécutez-le et installez-le.
-Créez un dossier, n'importe ou sur votre ordinateur, que vous nommerez 'blablaland.js' pour cet exemple, nous allons en créer un sur le bureau.
-Ouvrez l'invite de commande (windows + r > cmd), et entrez la commande :
+Pour utiliser ce rétro, vous allez avoir besoin de nodejs (https://nodejs.org/en/).  
+D'un navigateur qui supporte flash comme Pale Moon (https://www.palemoon.org/download.shtml) ainsi que Flash Player (https://ia801806.us.archive.org/13/items/flashplayer32_0r0_371_win/flashplayer32_0r0_371_win.msi) ou du launcher dans ce git.  
+Une fois téléchargé, exécutez-le et installez-le.  
+Créez un dossier, n'importe ou sur votre ordinateur, que vous nommerez 'blablaland.js' pour cet exemple, nous allons en créer un sur le bureau.  
+Ouvrez l'invite de commande (windows + r > cmd), et entrez la commande :  
 ```
 cd Desktop\blablaland.js
 ```
@@ -82,7 +82,7 @@ Méthode la plus simple:
     - Protection basique des mods activé
 
 ## Config.json
-Le config.json est un petit fichier qui permettra de paramétrer votre serveur.
+Le config.json est un petit fichier qui permettra de paramétrer votre serveur.  
 Il se trouve dans le dossier Server, voici le fonctionnement:
 
 ```json
@@ -98,10 +98,20 @@ Il se trouve dans le dossier Server, voici le fonctionnement:
 
 ## Client
 
-Le client est le même que celui de blablaland.fun.
-Flash player est inclu dans le client.
-Un fichier .bat vous permet de lancer le serveur directement.
+Le client est le même que celui de blablaland.fun.  
+Flash player est inclu dans le client.  
+Un fichier .bat vous permet de lancer le serveur directement.  
 ngrok vous permet de partager votre serveur publiquement, <a href="https://ngrok.com/">plus d'info...<a>
 
+Comptes existant déjà dans la BDD:  
+
+```
 Pseudo: Admin
 Pass: Admin000
+
+Pseudo: Modo
+Pass: Modo000
+
+Pseudo: Membre
+Pass: Membre000
+```
