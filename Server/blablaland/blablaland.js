@@ -12,12 +12,20 @@ var rawdata = fs.readFileSync('config.json');
 var config = JSON.parse(rawdata);
 
 var powerInfo = {
-    //10000: [2, 1, 99999, 5, 5, new SocketMessage()],
-    //10001: [2, 2, 99999, 5, 5, new SocketMessage()],
+    // 10000: [2, 1, 99999, 5, 5, new SocketMessage()],
+    // 10001: [2, 2, 99999, 5, 5, new SocketMessage()],
     10002: [2, 3, 99999, 5, 5, new SocketMessage()],
     10003: [2, 4, 0, 5, 5, new SocketMessage()],
     10004: [2, 5, 0, 5, 5, new SocketMessage()],
-    10005: [2, 6, 0, 5, 5, new SocketMessage()]
+    // 10005: [2, 6, 0, 5, 5, new SocketMessage()]
+};
+
+var powerInfoModo = {
+    10001: [2, 1, 99999, 5, 5, new SocketMessage()]
+};
+
+var powerInfoAdmin = {
+    10000: [2, 2, 99999, 5, 5, new SocketMessage()]
 };
 
 var nbSmiley = 15;
@@ -186,6 +194,38 @@ class BblCamera {
                         data: powerInfo[i][5]
                     });
                 }
+				if (this.grade >= 800)
+				{
+					for(var i in powerInfoModo) {
+						packet = this.userObjectEvent(packet, {
+							type: 0,
+							id: i,
+							fxFileId: powerInfoModo[i][0],
+							objectId: powerInfoModo[i][1],
+							count: 999,
+							expire: powerInfoModo[i][2],
+							visibility: powerInfoModo[i][3],
+							genre: powerInfoModo[i][4],
+							data: powerInfoModo[i][5]
+						});
+					}
+						if (this.grade >= 1000)
+						{
+							for(var i in powerInfoAdmin) {
+								packet = this.userObjectEvent(packet, {
+								type: 0,
+								id: i,
+								fxFileId: powerInfoAdmin[i][0],
+								objectId: powerInfoAdmin[i][1],
+								count: 999,
+								expire: powerInfoAdmin[i][2],
+								visibility: powerInfoAdmin[i][3],
+								genre: powerInfoAdmin[i][4],
+								data: powerInfoAdmin[i][5]
+						});
+					}
+						}
+				}
                 packet.bitWriteBoolean(false);
                 this.send(packet);
                 this.chatBuffer = {
