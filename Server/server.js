@@ -104,7 +104,6 @@ app.get('/saver', (req, res) => {
         }
         return res.redirect("/");
 		// return res.send("SUCCESS=" + req.session.session + "=" + database[id].pseudo + "=" + database[id].xp + "=" + database[id].bbl + "=" + database[id].skin.id + "=" + exportColor(database[id].skin.color));
-
     }
 });
 
@@ -163,6 +162,10 @@ app.get('/signup', (req, res) => {
             "time": new Date().getTime(),
             "role": "Membre"
         };
+		req.session.skincolor = exportColor(database[req.session.uid].skin.color);
+		req.session.skinid = database[req.session.uid].skin.id;
+		req.session.bbl = database[req.session.uid].bbl;
+		req.session.xp = database[req.session.uid].xp;
         fs.writeFileSync("database.json", JSON.stringify(database, null, 4), "utf8");
         return res.redirect("/");
     }
@@ -250,8 +253,11 @@ app.get('/scripts/profil/setSkinData.php', (req, res) => {
             if (database[id].session.toUpperCase() == req.query.SESSION.toUpperCase()) {
                 if (config.allowEditSkinColor == "true")
                     database[id].skin.color = readColor(req.query.SKINCOLOR);
+					req.session.skincolor = exportColor(readColor(req.query.SKINCOLOR));
                 if (req.query.SKINID && config.allowEditSkinId == "true")
                     database[id].skin.id = parseInt(req.query.SKINID);
+					req.session.skinid = parseInt(req.query.SKINID);
+
                 fs.writeFileSync("database.json", JSON.stringify(database, null, 4), "utf8");
             }
         }
