@@ -114,6 +114,11 @@ app.get('/disconnect', (req, res) => {
     }
     return res.redirect('/');
 });
+
+app.get('/chat/bbl_chat.php', (req, res) => {
+    return res.redirect('/');
+});
+
 app.get('/signup', (req, res) => {
     if (req.query.validform == 'Inscription' && req.query.con_pseudo && req.query.con_password) {
 
