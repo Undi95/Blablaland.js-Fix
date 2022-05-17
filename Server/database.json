@@ -28,8 +28,74 @@
         "bbl": 420,
         "xp": 69,
         "chatColor": "0129402a0a20333334",
-        "session": "6701522",
+        "session": "5969947",
         "time": 1652738126462,
         "role": "Admin"
+    },
+    "2": {
+        "id": 2,
+        "pseudo": "Modo",
+        "password": "961ac106dd0b9d3fed309ca890464ebf1afdf9f30005671afddd2893ee7a67bb12806cb26d614240b80e39981b95ef9ad61b87f99563fba498cd8a1a889ce8cc",
+        "skin": {
+            "color": [
+                0,
+                0,
+                88,
+                44,
+                44,
+                58,
+                0,
+                0,
+                0,
+                0
+            ],
+            "id": 7,
+            "posX": 58750,
+            "posY": 28850,
+            "direction": false
+        },
+        "map": {
+            "id": 9
+        },
+        "sexe": 0,
+        "bbl": 420,
+        "xp": 69,
+        "chatColor": "0129402a0a20333334",
+        "session": "5332475",
+        "time": 1652823230587,
+        "role": "Modo"
+    },
+    "3": {
+        "id": 3,
+        "pseudo": "Membre",
+        "password": "504ad08588f6fb9e242a802078cb8181f4fd692458b8ce18741c2ebbc21c8ee7fbe258ddeb50fb373072bf63ced3509f7d95ac08046cd1898a2903638d7f590b",
+        "skin": {
+            "color": [
+                57,
+                81,
+                47,
+                81,
+                89,
+                58,
+                16,
+                53,
+                76,
+                72
+            ],
+            "id": 688,
+            "posX": 45050,
+            "posY": 39450,
+            "direction": true
+        },
+        "map": {
+            "id": 9
+        },
+        "sexe": 0,
+        "bbl": 420,
+        "xp": 69,
+        "chatColor": "0129402a0a20333334",
+        "session": "4439438",
+        "time": 1652823242982,
+        "role": "Membre"
     }
 }
