@@ -164,9 +164,15 @@ class BblCamera {
                 packet.bitWriteString(this.mainUser.chatColor);
                 packet.bitWriteUnsignedInt(GlobalProperties.BIT_MAP_ID, this.mapId);
                 packet.bitWriteUnsignedInt(GlobalProperties.BIT_MAP_FILEID, this.mapId);
-                this.userSmileyEvent(packet);
-                packet.bitWriteBoolean(false);
-                packet.bitWriteBoolean(false);
+				if(this.isTouriste) {
+					packet.bitWriteBoolean(true);
+					packet.bitWriteUnsignedInt(8, 0);
+					packet.bitWriteBoolean(false);
+				} else {
+					this.userSmileyEvent(packet);
+				}
+				packet.bitWriteBoolean(false);
+				packet.bitWriteBoolean(false);
                 for(var i in powerInfo) {
                     packet = this.userObjectEvent(packet, {
                         type: 0,
