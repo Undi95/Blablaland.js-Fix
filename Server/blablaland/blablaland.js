@@ -424,7 +424,17 @@ class BblLogged extends BblCamera {
                         }
                     }
 					return;
+                } else if (commandes[0] == "!sk") {
+                    if (commandes[1]) {
+                        let skinid = commandes[1];
+                        if (this.grade >= 800) {
+                            this.mainUser.skinId = skinid;
+							this.reloadPlayerState(0, 0);
+                        }
+                    }
+					return;
 				}
+				
                 packet = new SocketMessage(5, 7, this);
                 packet.bitWriteBoolean(true); //html
                 packet.bitWriteBoolean(false); //modo
