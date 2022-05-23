@@ -306,7 +306,7 @@ class BblLogged extends BblCamera {
         this.uid = 0;
         this.pid = 1;
         this.sex = 0;
-        this.pseudo = "Undi";
+        this.pseudo = "testtestt";
         this.grade = 0;
         this.xp = 300;
         this.GPTimer = 0;
@@ -414,19 +414,66 @@ class BblLogged extends BblCamera {
                 } else if(commandes[0] == "!tp") {
                     this.teleportToMap(this.cameraId, parseInt(commandes[1]), this.serverId, 4);
                     return;
+                } else if (commandes[0] == "!tphere") {
+                    if (commandes[1]) {
+                        let pseudo = commandes[1];
+                        let userTP = this.getUserByPseudo(pseudo);
+                        if (userTP && this.grade >= 800) {
+							userTP.teleportToMap(this.cameraId, this.mapId, this.serverId, 4);
+							let packetResponse = new SocketMessage(5, 11);
+							packetResponse.bitWriteUnsignedInt(GlobalProperties.BIT_MAP_ID, this.mapId); 
+							packetResponse.bitWriteUnsignedInt(GlobalProperties.BIT_SERVER_ID, this.serverId); 
+							packetResponse.bitWriteBoolean(true); 
+							packetResponse.bitWriteBoolean(false); 
+							packetResponse.bitWriteString(`<font color=\'#15B62F\'><u>${pseudo}</u> téléporté dans cette map.</font>`);
+							this.send(packetResponse)
+							}
+                    }
+					return;
+                } else if (commandes[0] == "!tpto") {
+                    if (commandes[1]) {
+                        let pseudo = commandes[1];
+                        let userTP = this.getUserByPseudo(pseudo);
+                        if (userTP && this.grade >= 800) {
+							this.teleportToMap(userTP.cameraId, userTP.mapId, userTP.serverId, 4);
+							let packetResponse = new SocketMessage(5, 11);
+							packetResponse.bitWriteUnsignedInt(GlobalProperties.BIT_MAP_ID, this.mapId); 
+							packetResponse.bitWriteUnsignedInt(GlobalProperties.BIT_SERVER_ID, this.serverId); 
+							packetResponse.bitWriteBoolean(true); 
+							packetResponse.bitWriteBoolean(false); 
+							packetResponse.bitWriteString(`<font color=\'#15B62F\'>Téléporté à <u>${pseudo}</u></font>`);
+							this.send(packetResponse)
+							}
+                    }
+					return;
                 } else if (commandes[0] == "!kick") {
                     if (commandes[1]) {
-						var msg = "aucune raison donnée"
                         let pseudo = commandes[1];
                         let userKick = this.getUserByPseudo(pseudo);
                         if (userKick && this.grade >= 800) {
 						var msg = commandes.slice(2);
-                            userKick.sendError(`Vous avez été kické par ${this.pseudo} => ${msg.toString().replace(/,/g," ")}`);
-                            packet = new SocketMessage(5, 11, this);
+                            packet = new SocketMessage(5, 11, userKick);
                             packet.bitWriteBoolean(true);
                             packet.bitWriteBoolean(false);
-                            packet.bitWriteString(`\n<font color=\'#15B62F\'>${pseudo} a été kické par ${this.pseudo} pour la raison suivante: ${msg.toString().replace(/,/g," ")}.</font>`);
+                            packet.bitWriteString(`<font color=\'#15B62F\'>${pseudo} a été kické par ${this.pseudo} pour la raison suivante: ${msg.toString().replace(/,/g," ")}.</font>`);
+							userKick.sendError(`Vous avez été kické par ${this.pseudo} => ${msg.toString().replace(/,/g," ")}`);
 							userKick.map.maps[userKick.mapId].sendAll(packet);
+							}
+                    }
+					return;
+                } else if (commandes[0] == "!kill") {
+                    if (commandes[1]) {
+                        let pseudo = commandes[1];
+                        let userDie = this.getUserByPseudo(pseudo);
+                        if (userDie && this.grade >= 1000) {
+						userDie.die(pseudo + " a été atomisé à distance par " + this.pseudo + ".", 7);
+							let packetResponse = new SocketMessage(5, 11);
+							packetResponse.bitWriteUnsignedInt(GlobalProperties.BIT_MAP_ID, this.mapId); 
+							packetResponse.bitWriteUnsignedInt(GlobalProperties.BIT_SERVER_ID, this.serverId); 
+							packetResponse.bitWriteBoolean(true); 
+							packetResponse.bitWriteBoolean(false); 
+							packetResponse.bitWriteString(`<font color=\'#15B62F\'><u>${pseudo}</u> atomisé.</font>`);
+							this.send(packetResponse)
 							}
                     }
 					return;
@@ -463,7 +510,40 @@ class BblLogged extends BblCamera {
                         }
                     }
 					return;
-				}
+				} else if (commandes[0] == "!mpm") {
+                    if (commandes[1]) {
+				let pseudo = this.pseudo;
+				let pseudo2 = commandes[1];
+				var userMP = this.getUserByPseudo(commandes[1]);
+				var msg = commandes.slice(2);
+                if (userMP) {
+                    packet = new SocketMessage(1, 5);
+                    packet.bitWriteBoolean(false); //html
+                    packet.bitWriteBoolean(true); //modo
+                    packet.bitWriteUnsignedInt(GlobalProperties.BIT_USER_PID, userMP.pid);
+                    packet.bitWriteUnsignedInt(GlobalProperties.BIT_USER_ID, userMP.uid);
+                    packet.bitWriteString(this.pseudo);
+                    packet.bitWriteString(`${msg.toString().replace(/,/g," ")}`);
+                    userMP.send(packet);
+					let packetResponse = new SocketMessage(5, 11);
+                    packetResponse.bitWriteUnsignedInt(GlobalProperties.BIT_MAP_ID, this.mapId); 
+                    packetResponse.bitWriteUnsignedInt(GlobalProperties.BIT_SERVER_ID, this.serverId); 
+                    packetResponse.bitWriteBoolean(true); 
+                    packetResponse.bitWriteBoolean(false); 
+                    packetResponse.bitWriteString(`<font color=\'#bf0202\'>Message privé modo envoyé à <u>${pseudo2}</u>.</font>`);
+                    this.send(packetResponse)
+                } else {
+                    packet = new SocketMessage(5, 11);
+                    packet.bitWriteUnsignedInt(GlobalProperties.BIT_MAP_ID, this.mapId); 
+                    packet.bitWriteUnsignedInt(GlobalProperties.BIT_SERVER_ID, this.serverId); 
+                    packet.bitWriteBoolean(false); 
+                    packet.bitWriteBoolean(false); 
+                    packet.bitWriteString(`${pseudo2} n'est pas connecté`);
+                    this.send(packet)
+                }
+                    }
+					return;
+                }
 				
                 packet = new SocketMessage(5, 7, this);
                 packet.bitWriteBoolean(true); //html
