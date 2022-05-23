@@ -416,12 +416,18 @@ class BblLogged extends BblCamera {
                     return;
                 } else if (commandes[0] == "!kick") {
                     if (commandes[1]) {
+						var msg = "aucune raison donnée"
                         let pseudo = commandes[1];
                         let userKick = this.getUserByPseudo(pseudo);
                         if (userKick && this.grade >= 800) {
 						var msg = commandes.slice(2);
                             userKick.sendError(`Vous avez été kické par ${this.pseudo} => ${msg.toString().replace(/,/g," ")}`);
-                        }
+                            packet = new SocketMessage(5, 11, this);
+                            packet.bitWriteBoolean(true);
+                            packet.bitWriteBoolean(false);
+                            packet.bitWriteString(`\n<font color=\'#15B62F\'>${pseudo} a été kické par ${this.pseudo} pour la raison suivante: ${msg.toString().replace(/,/g," ")}.</font>`);
+							userKick.map.maps[userKick.mapId].sendAll(packet);
+							}
                     }
 					return;
                 } else if (commandes[0] == "!sk") {
@@ -430,6 +436,30 @@ class BblLogged extends BblCamera {
                         if (this.grade >= 800) {
                             this.mainUser.skinId = skinid;
 							this.reloadPlayerState(0, 0);
+                        }
+                    }
+					return;
+				} else if (commandes[0] == "!mod") {
+                    if (commandes[1]) {
+                        var msg = commandes.slice(1);
+                        if (this.grade >= 800) {
+							packet = new SocketMessage(5, 7, this);
+							packet.bitWriteBoolean(false)
+							packet.bitWriteBoolean(true)
+							packet.bitWriteUnsignedInt(GlobalProperties.BIT_USER_PID, this.pid)
+							packet.bitWriteUnsignedInt(GlobalProperties.BIT_USER_ID, this.uid)
+							packet.bitWriteUnsignedInt(3, this.sex)
+							packet.bitWriteString(this.pseudo)
+							packet.bitWriteUnsignedInt(GlobalProperties.BIT_SERVER_ID, this.serverId);
+							packet.bitWriteString(msg.toString().replace(/,/g," "));
+							packet.bitWriteUnsignedInt(3, action)
+							// for (let i = 0; i < 9999; i++) {
+							// this.mapId = i;
+							// this.map.maps[i].sendAll(packet);
+							// console.log("Msg modo envoyé à la map:" + this.mapId);
+							// }
+							this.map.maps[this.mapId].sendAll(packet);
+							this.updateDodo(false);
                         }
                     }
 					return;
