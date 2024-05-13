@@ -1,7 +1,7 @@
 # Blablaland.js
 
-Un retro Open Source développé par GregVido v0.0.4.3 !
-Amélioré par xcoder et Undi.
+Un retro Open Source développé par la communauté pour la communauté !
+Développé par GregVido, Xcoder et Undi.
 
 ## Installation
 
@@ -31,6 +31,18 @@ Méthode la plus simple:
 	- Enjoy! Votre serveur se lance si nodejs est bien installé
 	- Décompressez le launcher
 	- Ouvrez launch.bat dans dossier Client pour vous connecter à votre serveur
+
+## NEWS v0.0.4.4
+	- Ajout des pouvoirs (certains bugs)
+	- Ajout des montures
+ 	- Ajout des maisons
+  	- La console devrait fonctionner
+   	- Passage au SQLITE au lieu de json (utilisez sqlite browser pour editer : https://sqlitebrowser.org/dl/ )
+   	- Anti-spam
+    	- Liste d'ami
+     	- Amélioration de la sécurité (légérement)
+     	- Certains mini-jeux fonctionnent mais peuvent bugger
+      	- Ajout de la boutique	
 
 ## NEWS v0.0.4.3
 
