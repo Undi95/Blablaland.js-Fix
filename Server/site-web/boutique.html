@@ -1,0 +1,135 @@
+<html>
+<header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Boutique de Skins</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+</header>
+
+<body>
+    <topbar><a>Game originally designed by Niveau99, Work based from Greg Vido, Feavy, Undi and Xcoder</a></topbar>
+    <topsite>
+        <img src="img/topsite.png">
+        <header_info>
+            <header_profil style="padding-top:8px;">
+                <my_avatar>
+				<br><br>
+				<div class="skinviewer">
+                    {{skinviewer}}
+                </div>
+				</my_avatar>
+                <profil_login_box>
+                    {{form}}
+                </profil_login_box>
+            </header_profil>
+        </header_info>
+        <menu>
+            <ul>
+                <li><a href = "/"><span>Le Tchat</span></a></li>
+                <li><a href="/inscription"><span>Inscription</span></a></li>
+				<li><a href="/Boutique"><span>Boutique</span></a></li>
+                <li><a href="/info"><span>Information</span></a></li>
+				<li><a href="/skin"><span>Changer de skin</span></a></li>
+				<li><a href="/howplay"><span>Comment jouer</span></a></li>
+				<li><a href="/rules"><span>Réglement</span></a></li>
+            </ul>
+        </menu>
+    </topsite>
+	<content>
+    <div class="container">
+        <h1 class="my-4">Boutique de Skins</h1>
+        <input type="text" id="search" placeholder="Rechercher...">
+        <select id="category">
+            <option value="">Catégorie</option>
+            <!-- Les options de catégorie seront générées ici par le serveur -->
+        </select>
+        <button id="searchButton">Valider</button>
+        <div id="skins" class="row" style="margin-top : 20px;">
+            <!-- Les cartes de skins seront générées ici par le serveur -->
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        let offset = 0;
+        let limit = 10;
+
+        $('#searchButton').on('click', function() {
+            offset = 0;
+            limit = 10;
+            loadSkins();
+        });
+		
+		$('#category').on('change', function() {
+            offset = 0;
+            limit = 10;
+            loadSkins();
+        });
+
+        function loadSkins() {
+            const search = $('#search').val();
+            const category = $('#category').val();
+            $.get('/skins?search=' + encodeURIComponent(search) + '&category=' + encodeURIComponent(category) + '&offset=' + offset + '&limit=' + limit, function(data) {
+                if (offset == 0) {
+                    $('#skins').html('');
+                }
+                data.forEach(function(skin) {
+                    $('#skins').append(`
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card h-100">
+							<div class="div_showskin" id="div_showSkin_2" style="background-color:#FFFFFF; width:100px; height:130px; background-image:url(/data/left/skin_bg_18.jpg); no-repeat center center fixed-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover; margin-left: auto; margin-right: auto; margin-top : 20px;">
+                                <iframe allowfullscreen="" src="/data/viewskin.swf?SHOWBIG=1&SKINID=${skin.id}&SKINCOLOR=${skin.color}" id="skinviewerframe" width="100" height="130"></iframe>
+							</div>
+                                <div class="card-body">
+                                    <h4 class="card-title">${skin.name}</h4>
+                                    <p class="card-text">${skin.comment}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-primary" onclick="addToCart(${skin.id})" id="btn_${skin.id}" >Obtenir</button>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                });
+                offset += limit;
+                limit = 3; // Change the limit to 3 after the first load
+            });
+        }
+
+    function addToCart(id) {
+        $.ajax({
+            url: '/add-to-cart',
+            type: 'POST',
+            data: { skinId: id },
+            success: function(data) {
+                $('#btn_' + id).replaceWith('<span>Obtenu</span>');  // Remplace le bouton par un texte "Acheté"
+            },
+            error: function(err) {
+                console.error(err);
+                alert('Une erreur s\'est produite lors de l\'ajout du skin.');
+            }
+        });
+    }
+
+        // Load categories
+        $.get('/categories', function(data) {
+            data.forEach(function(category) {
+                $('#category').append(`<option value="${category.id}">${category.category}</option>`);
+            });
+        });
+
+        // Load initial skins
+        loadSkins();
+
+        // Infinite scrolling
+        $(window).scroll(function() {
+            if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+                loadSkins();
+            }
+        });
+    </script>
+</body>
+</html>

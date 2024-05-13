@@ -1,0 +1,80 @@
+<html>
+<header>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+</header>
+
+<body>
+    <topbar><a>Game originally designed by Niveau99, Work based from Greg Vido, Feavy, Undi and Xcoder</a></topbar>
+    <topsite>
+        <img src="img/topsite.png">
+        <header_info>
+            <header_profil style="padding-top:8px;">
+                <my_avatar>
+				<br><br>
+				<div class="skinviewer">
+                    {{skinviewer}}
+                </div>
+				</my_avatar>
+                <profil_login_box>
+                    {{form}}
+                </profil_login_box>
+            </header_profil>
+        </header_info>
+        <menu>
+            <ul>
+                <li><a href = "/"><span>Le Tchat</span></a></li>
+                <li><a href="/inscription"><span>Inscription</span></a></li>
+				<li><a href="/boutique"><span>Boutique</span></a></li>
+                <li><a href="/info"><span>Information</span></a></li>
+				<li><a href="/skin"><span>Changer de skin</span></a></li>
+				<li><a href="/howplay"><span>Comment jouer</span></a></li>
+				<li><a href="/rules"><span>Réglement</span></a></li>
+            </ul>
+        </menu>
+    </topsite>
+    <content>
+	
+	<h1> Installation sous windows : </h1>
+	<br/>
+	<br/>Il y a deux solutions :
+	<br/>
+	<br/>La version portable (non recommandé) :
+	<br/>
+	<br/> <a href="http://blablaland.org/img/launcher.zip"> Launcher portable </a>
+	<br/>
+	Suffit de télécharger le launcher et l'extraire et exécuter firefox.exe.<br/>
+	<br/>
+	<br/>La version installable (recommandé) :
+	<br/>
+	<br/> Suffit de télécharger pale moon qui autorise le flash : <a href="https://www.palemoon.org/download.shtml"> Telecharger palmoon </a>
+	<br/> L'extension flash qui va avec : <a href="https://archive.org/download/flashplayer32_0r0_371_win/flashplayer32_0r0_371_win.msi"> Telecharger flash </a>
+	<br/>
+	<br/>Refusez toute mises à jour de flash.
+	<br/>	
+	<h1> Installation sous mac : </h1>
+	<br/>
+	<br/> <a href="https://github.com/MadScripter/FlashBundleInstaller"> launcher mac </a>
+	<br/>
+	<br/> Suivez les instructions 🙂
+	<br/>
+	<br/>Merci @Billal et MadScripter 😉
+	<br/>
+	<br/>1 - Ouvrez une terminal
+	<br/>
+	<br/> 2 - Créez un dossier et accèdez-y
+	<br/>
+	<br/> mkdir ~/flashbundleinstaller && cd ~/flashbundleinstaller
+	<br/><br/> 3 - Téléchargez le script
+	<br/>
+	<br/>curl -o installer.sh https://raw.githubusercontent.com/MadScripter/FlashBundleInstaller/main/installer.sh
+	<br/><br/>4 - Rendez le script éxecutable
+	<br/>
+	<br/> chmod +x installer.sh
+	<br/> 5 - Exectuez le script
+	<br/>
+	<br/> ./installer.sh
+    </content>
+</body>
+
+</html>
