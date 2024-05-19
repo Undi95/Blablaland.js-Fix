@@ -3124,7 +3124,7 @@ class BblLogged extends BblCamera {
                 if (this.mapId == 10) return;
                 if (this.data.MANOIR || this.data.PYRAMIDE) return;
                 if (this.data.CAN_USE_POWER) {
-                    this.data.CAN_USE_POWER = false;
+                    this.data.CAN_USE_POWER = true;
                 } else {
                     return;
                 }
