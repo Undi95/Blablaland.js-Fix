@@ -9,7 +9,6 @@ var fs = require('fs');
 const replace = require('buffer-replace');
 var zlib = require('zlib');
 var ServerBBL = require('./blablaland/blablaland.js');
-let skins = JSON.parse(fs.readFileSync("skindb.json"));
 const ipfilter = require('express-ipfilter').IpFilter
 var CryptoJS = require("crypto-js");
 var SHA512 = require("crypto-js/sha512");
