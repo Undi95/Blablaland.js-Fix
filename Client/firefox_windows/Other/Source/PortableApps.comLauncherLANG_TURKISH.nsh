@@ -1,6 +1,0 @@
-﻿LangString LauncherFileNotFound ${LANG_TURKISH} "$AppNamePortable başlatılamadı. Bu durumu düzeltmek için yeniden kurmanız gerekebilir. (HATA: $MissingFileOrPath bulunamadı)"
-LangString LauncherAlreadyRunning ${LANG_TURKISH} "Başka bir $AppName kopyası zaten çalışıyor. $AppNamePortable'ı çalıştırmadan önce lütfen diğer $AppName kopyalarını kapatın."
-LangString LauncherAskCopyLocal ${LANG_TURKISH} "$AppNamePortable yalnızca okunabilir bir ortamdan çalıştırılmış gibi görünüyor. Geçici olarak yerel hard diske kopyalayıp oradan çalıştırmak ister misiniz?$\n$\nGizlilik Notu: Evet'i seçerseniz $AppNamePortable içindeki kişisel bilgileriniz geçici olarak yerel diske kopyalanacaktır. $AppNamePortable'ı kapattığınızda bu verilerin bu kopyası silinecek olsa da, başka birinin sonradan bu verilere erişmesi mümkün olabilir."
-LangString LauncherNoReadOnly ${LANG_TURKISH} "$AppNamePortable sadece okunabilir bir ortamdan doğrudan çalıştırılamaz ve şimdi kapanacak."
-LangString LauncherPathTooLong ${LANG_TURKISH} "$AppNamePortable dizini fazla uzun. Lütfen üst dizinlerin bir kısmını kaldırarak veya dizin ismini kısaltarak dizini kısaltın."
-LangString LauncherNextButton ${LANG_TURKISH} "Sonraki >"
